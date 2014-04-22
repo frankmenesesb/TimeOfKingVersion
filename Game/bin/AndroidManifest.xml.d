@@ -1,2 +1,2 @@
-D:\versionamiento_eclipse\Game\bin\AndroidManifest.xml : \
-D:\versionamiento_eclipse\Game\AndroidManifest.xml \
+C:\Users\fmeneses\Documents\GitHub\TimeOfKingVersion\Game\bin\AndroidManifest.xml : \
+C:\Users\fmeneses\Documents\GitHub\TimeOfKingVersion\Game\AndroidManifest.xml \

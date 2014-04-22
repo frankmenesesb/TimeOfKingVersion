@@ -224,7 +224,7 @@ public class GameView extends SurfaceView {
              
              //reproduccion de arboles verticales
              for(int g=0; g<17; g++){
-                for(int h=0; h<6; h++){
+                for(int h=0; h<7; h++){
                  xo=40*h;
                  yo=40*g;
                  canvas.drawBitmap((Bitmap) arbolitos.get(h), movimientox+xo , movimientoy+yo, null);
