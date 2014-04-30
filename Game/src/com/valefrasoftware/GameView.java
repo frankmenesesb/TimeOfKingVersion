@@ -33,6 +33,10 @@ public class GameView extends SurfaceView {
        private Bitmap botonA;
        private Bitmap botonB;
        private Bitmap fondo;
+       private Bitmap viejo;
+       private Bitmap dialogo;
+       private Bitmap transparente;
+       private int conDialogo=0;
        private int intro=0;
        private SurfaceHolder holder;
        private GameLoopThread gameLoopThread;
@@ -95,15 +99,20 @@ public class GameView extends SurfaceView {
                     
                     
              });
-             
+             // se declara arreglo para reproducir arboles
              arbolitos = new ArrayList();
              
+             //se instancian las bitmap llamando las imagenes que le corresponden
              bmp = BitmapFactory.decodeResource(getResources(), R.drawable.inicio);
              analogo=BitmapFactory.decodeResource(getResources(), R.drawable.anologo_1);
              botonA=BitmapFactory.decodeResource(getResources(), R.drawable.boton_a);
              botonB=BitmapFactory.decodeResource(getResources(), R.drawable.boton_b);
              fondo = BitmapFactory.decodeResource(getResources(), R.drawable.tierra);
+             viejo = BitmapFactory.decodeResource(getResources(), R.drawable.viejo);
+             dialogo = BitmapFactory.decodeResource(getResources(), R.drawable.transpar);
              arbolito = BitmapFactory.decodeResource(getResources(), R.drawable.arbolillo);
+             
+             //se el envia varios arboles a el arreglo arbolitos
              for(int q=0; q<20; q++){
                  arbolitos.add(q, arbolito);
              }
@@ -196,15 +205,23 @@ public class GameView extends SurfaceView {
         }
            
              intro++;
-           
+             int abueloX, abueloY;
+             
              y=y+ySpeed;
              x = x + xSpeed;
              movimientox=xFondo-x;
              movimientoy=yFondo-y;
+             abueloX=movimientox+400;
+             abueloY=movimientoy+190;
              canvas.drawColor(Color.BLACK);
              canvas.drawBitmap(fondo, movimientox, movimientoy, null);
+             canvas.drawBitmap(viejo, abueloX, abueloY, null);
              canvas.drawBitmap(arbolito, movimientox+40 , movimientoy+40, null);
              
+             
+//             if(abueloX<=(getWidth()/2) && abueloY>=(getHeight()/2)+20 ){
+                 
+//             }
 //             for(int u=0; u<2; u++){
 //             for(int o=0; o<2; o++){
 //                xo=100*o;
@@ -237,7 +254,7 @@ public class GameView extends SurfaceView {
              canvas.drawBitmap(bmp, getWidth()/2 , getHeight()/2, null);
              
              
-             //canvas.drawBitmap(botonA, (getWidth()-getWidth()+100) - botonA.getWidth() , getHeight()- botonA.getHeight(), null);
+             canvas.drawBitmap(botonA, (getWidth()-getWidth()+400) - botonA.getWidth() , getHeight()- botonA.getHeight(), null);
              //canvas.drawBitmap(botonB, botonB.getWidth()+10 , getHeight()- botonB.getHeight(), null);
              
              xSpeed = 0;
@@ -246,10 +263,17 @@ public class GameView extends SurfaceView {
              analogo=BitmapFactory.decodeResource(getResources(), R.drawable.anologo_1);
              botonA=BitmapFactory.decodeResource(getResources(), R.drawable.boton_a);
 
+             if(conDialogo==1){
+                 dialogo = BitmapFactory.decodeResource(getResources(), R.drawable.dialogo12);
+             }
              
-      
+             if(conDialogo>1){
+                 conDialogo=0;
+             }
              
-             
+             if(conDialogo==0){
+                canvas.drawBitmap(dialogo,(getWidth()-getWidth()+450) - dialogo.getWidth()  , getHeight()- getHeight(), null);
+             }
              
        }
 
@@ -392,7 +416,7 @@ private void processMovement(float x1, float y1, float x2, float y2) {
     
     
     public void pressButon(float x1, float y1, float x2, float y2) {
-    if ((x2 > ((getWidth()-getWidth()+100) - botonA.getWidth())  &&  x2<(getWidth()-getWidth()+100)) 
+    if ((x2 > ((getWidth()-getWidth()+400) - botonA.getWidth())  &&  x2<(getWidth()-getWidth()+400)) 
             && (y2>getHeight()- botonA.getHeight()) && y2<getHeight()) {
         //Log.i("touch", "left");
         // move Left
@@ -402,6 +426,7 @@ private void processMovement(float x1, float y1, float x2, float y2) {
 //            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.c3);
 //            analogo=BitmapFactory.decodeResource(getResources(), R.drawable.analogo_left_1);
         botonA=BitmapFactory.decodeResource(getResources(), R.drawable.boton_a_2);
+        conDialogo++;
         
         //bmp.setPixel(70, 80, contador);    
     } else if (x2 > x1 && (Math.abs(y2 - y1) < Math.abs(x2 - x1))) {
