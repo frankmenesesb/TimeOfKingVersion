@@ -33,12 +33,16 @@ public final class R {
         public static final int down_right=0x7f020013;
         public static final int ic_launcher=0x7f020014;
         public static final int inicio=0x7f020015;
-        public static final int tierra=0x7f020016;
-        public static final int transpar=0x7f020017;
-        public static final int up_left=0x7f020018;
-        public static final int up_right=0x7f020019;
-        public static final int valeria_inicio=0x7f02001a;
-        public static final int viejo=0x7f02001b;
+        public static final int kamus_v2=0x7f020016;
+        public static final int malo_1=0x7f020017;
+        public static final int outh=0x7f020018;
+        public static final int tierra=0x7f020019;
+        public static final int transpar=0x7f02001a;
+        public static final int up_left=0x7f02001b;
+        public static final int up_right=0x7f02001c;
+        public static final int valeria_inicio=0x7f02001d;
+        public static final int viejo=0x7f02001e;
+        public static final int viejo_1=0x7f02001f;
     }
     public static final class layout {
         public static final int main=0x7f030000;
