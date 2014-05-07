@@ -6,7 +6,7 @@
 
 package com.valefrasoftware;
 
-
+//esta versuin
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -40,6 +40,7 @@ public class GameView extends SurfaceView {
        private Bitmap transparente;
        private int conDialogo=0;
        private int intro=0;
+       private int intro2=0;
        private SurfaceHolder holder;
        private GameLoopThread gameLoopThread;
        private int x = getWidth()/2;
