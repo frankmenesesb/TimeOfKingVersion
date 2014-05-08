@@ -13,6 +13,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -71,6 +73,11 @@ public class GameView extends SurfaceView {
        int xo=20;
        int yo=20;
        int contadorEspada=0;
+       int contadorCancion=0;
+       int contadorNinja=0;
+       int xnj=0;
+       SoundManager snd;
+	int laser, explode, pickup, meow, bark, moo;
       
        public GameView(Context context) {
              super(context);
@@ -107,7 +114,11 @@ public class GameView extends SurfaceView {
              });
              // se declara arreglo para reproducir arboles
              arbolitos = new ArrayList();
-             
+             snd = new SoundManager(getContext());
+
+             laser = snd.load(R.raw.print);
+             explode =snd.load(R.raw.prueba);
+           
              //se instancian las bitmap llamando las imagenes que le corresponden
              bmp = BitmapFactory.decodeResource(getResources(), R.drawable.inicio);
              analogo=BitmapFactory.decodeResource(getResources(), R.drawable.anologo_1);
@@ -135,7 +146,9 @@ public class GameView extends SurfaceView {
            System.out.println(System.getenv());
            //int movimientox;
            
-             
+           
+           
+             //snd.play(explode);
              
              // el if para la imagen inicial
         
@@ -223,9 +236,26 @@ public class GameView extends SurfaceView {
              ninjaX=movimientox+460;
              ninjaY=movimientoy+310;
              canvas.drawColor(Color.BLACK);
+             
+             //fondo
              canvas.drawBitmap(fondo, movimientox, movimientoy, null);
              canvas.drawBitmap(viejo, abueloX, abueloY, null);
-             canvas.drawBitmap(ninja, ninjaX, ninjaY, null);
+             
+             
+             //ninja-------
+             
+//             if(contadorNinja==1){
+//             ninja = BitmapFactory.decodeResource(getResources(), R.drawable.ninja_left_ata_3);
+//             }
+//             if(contadorNinja==2){
+//             ninja = BitmapFactory.decodeResource(getResources(), R.drawable.ninja_left_ata);
+//             contadorNinja=1;
+//             }
+//             canvas.drawBitmap(ninja, ninjaX, ninjaY, null);
+             
+             
+             
+             ///-------------
              canvas.drawBitmap(outh, abueloX+40, abueloY, null);
              canvas.drawBitmap(arbolito, movimientox+40 , movimientoy+40, null);
              
@@ -318,9 +348,48 @@ public class GameView extends SurfaceView {
              
              
              
-                 
-                canvas.drawBitmap(dialogo,(getWidth()-getWidth()+450) - dialogo.getWidth()  , getHeight()- getHeight(), null);
+             canvas.drawBitmap(ninja, ninjaX+xnj, ninjaY, null);
              
+             if(contadorNinja==1){
+             ninja = BitmapFactory.decodeResource(getResources(), R.drawable.ninja_left_ata_3);
+             }
+             if(contadorNinja==5){
+             ninja = BitmapFactory.decodeResource(getResources(), R.drawable.ninja_left_ata);
+             
+             }
+             if(contadorNinja==7){
+             
+             contadorNinja=0;
+             }
+        
+             if(getWidth()/2>ninjaX+xnj+40){
+                 
+              xnj=xnj+5;   
+                 
+             }else if(getWidth()/2<ninjaX+xnj-40){
+                 
+              xnj=xnj-5;   
+                 
+             }
+             
+             
+        
+             contadorNinja++;
+                 
+                 System.out.println(contadorNinja);
+                canvas.drawBitmap(dialogo,(getWidth()-getWidth()+450) - dialogo.getWidth()  , getHeight()- getHeight(), null);
+                
+                Paint paint = new Paint();
+                paint.setColor(Color.WHITE);
+                //paint.setAlpha(0);
+                paint.setStyle(Style.FILL);
+                //paint.setFilterBitmap(true);
+                //canvas.drawPaint(paint);
+
+                //paint.setColor(android.R.color.background_light);
+                paint.setTextSize(10);
+                
+                canvas.drawText(getWidth()/2+"<-----bmp------ninjaX-----> "+ninjaX+"xnj------->"+xnj, 140, 80,paint);
              
        }
 
@@ -344,7 +413,11 @@ public class GameView extends SurfaceView {
             float lastx = event.getX();
             float lasty = event.getY();
             
-            
+            if(contadorCancion==0){
+               snd.play(explode);
+           }
+           
+           contadorCancion++;
             processMovement(firstx, firsty, lastx, lasty);
             pressButon(firstx, firsty, lastx, lasty);
 
@@ -354,6 +427,7 @@ public class GameView extends SurfaceView {
         }break;
         default:{
             stop=true;
+            
             
         }break;
         
@@ -477,6 +551,15 @@ private void processMovement(float x1, float y1, float x2, float y2) {
         botonA=BitmapFactory.decodeResource(getResources(), R.drawable.boton_a_2);
         //conDialogo++;
         espada=true;
+        
+        
+        snd.play(laser);
+        
+//        if(contadorCancion==0){
+//        snd.play(explode);
+//        
+//        }
+//        contadorCancion++;
         //bmp.setPixel(70, 80, contador);    
     } else if (x2 > x1 && (Math.abs(y2 - y1) < Math.abs(x2 - x1))) {
 //        //Log.i("touch", "right");
